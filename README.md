@@ -7,9 +7,10 @@ Time spent: 4 hours spent in total
 Completed user stories:
 
  * [x] Required: user can *view* a list of existing todo items.
- * [x] Required: User can *add* a new item to the todo list
- * [x] Required: User can *remove* an item from the todo list
- * [x] Required: User can *edit* an item by pressing and edit in new activity
+ * [x] Required: User can *add* a new item to the todo list.
+ * [x] Required: User can *remove* an item from the todo list.
+ * [x] Required: User can *edit* an item by pressing and edit in new activity.
+ * [x] Required: Data is persisted to storage.
  
 Walkthrough of all user stories:
 
