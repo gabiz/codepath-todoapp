@@ -1,6 +1,6 @@
 # Android Bootcamp Pre-work: Building the Android Todo App
 
-This is an Android demo application for displaying the latest box office movies using the [RottenTomatoes API](http://www.rottentomatoes.com/). See the [RottenTomatoes Networking Tutorial](http://guides.thecodepath.com/android/RottenTomatoes-Networking-Tutorial) on our cliffnotes for a step-by-step tutorial.
+This is an Android demo application for tracking a todo list. See the [Todo Preword](https://gist.github.com/nesquena/843228e83fdc4f5ddc4e).
 
 Time spent: 4 hours spent in total
 
