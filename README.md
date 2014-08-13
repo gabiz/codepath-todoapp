@@ -1,6 +1,6 @@
-# Android Bootcamp Pre-work: Building the Android Todo App
+# Android Bootcamp: Building the Android Todo App
 
-This is an Android demo application for tracking a todo list. See the [Todo Preword](https://gist.github.com/nesquena/843228e83fdc4f5ddc4e).
+This is an Android application for tracking a todo list. See the [Todo Prework](https://gist.github.com/nesquena/843228e83fdc4f5ddc4e).
 
 Time spent: 4 hours spent in total
 
