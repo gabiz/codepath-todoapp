@@ -1,42 +1,39 @@
 package com.gapix.todoapp;
 
-import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Date;
 
-import org.apache.commons.io.FileUtils;
-
-import android.app.Activity;
-import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemLongClickListener;
-import android.widget.ArrayAdapter;
-import android.widget.EditText;
 import android.widget.ListView;
 
-public class TodoActivity extends Activity {
-    private ArrayList<String> items;
-    private ArrayAdapter<String> itemsAdapter;
+import com.gapix.todoapp.TodoItemDialog.TodoItemDialogListener;
+
+public class TodoActivity extends FragmentActivity {
+    private ArrayList<TodoItem> items;
     private ListView lvItems;
-    private final int REQUEST_CODE = 20;
+    private TodoItemAdapter itemsAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_todo);
         lvItems = (ListView) findViewById(R.id.lvItems);
-        items = new ArrayList<String>();
+
+        items = new ArrayList<TodoItem>();
         readItems();
-        itemsAdapter = new ArrayAdapter<String>(this,
-                android.R.layout.simple_list_item_1, items);
+
+        itemsAdapter = new TodoItemAdapter(this, items);
         lvItems.setAdapter(itemsAdapter);
         setupListViewListener();
+
     }
 
     @Override
@@ -62,62 +59,74 @@ public class TodoActivity extends Activity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view,
                     int position, long rowId) {
-                Intent i = new Intent(TodoActivity.this, EditItemActivity.class);
-                i.putExtra("position", position);
-                i.putExtra("text", itemsAdapter.getItem(position));
-                startActivityForResult(i, REQUEST_CODE);
+                showEditItemDialog(itemsAdapter.getItem(position));
             }
         });
 
     }
 
-    public void addTodoItem(View v) {
-        EditText etNewItem = (EditText) findViewById(R.id.etNewItem);
-        itemsAdapter.add(etNewItem.getText().toString());
-        etNewItem.setText("");
-        saveItems();
-        dismissKeyboard();
-    }
-
-    public void dismissKeyboard() {
-        InputMethodManager inputManager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-        inputManager.hideSoftInputFromWindow(this.getCurrentFocus()
-                .getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
-    }
-
     // Load / Save items
 
     public void readItems() {
-        File filesDir = getFilesDir();
-        File todoFile = new File(filesDir, "todo.txt");
-        try {
-            items = new ArrayList<String>(FileUtils.readLines(todoFile));
-        } catch (IOException e) {
-            items = new ArrayList<String>();
-            e.printStackTrace();
-        }
+        // File filesDir = getFilesDir();
+        // File todoFile = new File(filesDir, "todo.txt");
+        // try {
+        // items = new ArrayList<String>(FileUtils.readLines(todoFile));
+        // } catch (IOException e) {
+        // items = new ArrayList<String>();
+        // e.printStackTrace();
+        // }
     }
 
     public void saveItems() {
-        File filesDir = getFilesDir();
-        File todoFile = new File(filesDir, "todo.txt");
-        try {
-            FileUtils.writeLines(todoFile, items);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        // File filesDir = getFilesDir();
+        // File todoFile = new File(filesDir, "todo.txt");
+        // try {
+        // FileUtils.writeLines(todoFile, items);
+        // } catch (IOException e) {
+        // e.printStackTrace();
+        // }
+    }
+
+    private void showAddItemDialog() {
+        FragmentManager fm = getSupportFragmentManager();
+        TodoItemDialog todoItemDialog = TodoItemDialog.newInstance(
+                "Add Todo Item", null);
+        todoItemDialog.setFinishDialogListener(new TodoItemDialogListener() {
+            public void onFinishDialog(String description, Date date) {
+                TodoItem item = new TodoItem(description, date, 3);
+                items.add(item);
+                itemsAdapter.notifyDataSetChanged();
+            }
+        });
+
+        todoItemDialog.show(fm, "fragment_todo_item");
+    }
+
+    private void showEditItemDialog(final TodoItem item) {
+        FragmentManager fm = getSupportFragmentManager();
+        TodoItemDialog todoItemDialog = TodoItemDialog.newInstance(
+                "Edit Todo Item", item);
+        todoItemDialog.setFinishDialogListener(new TodoItemDialogListener() {
+            public void onFinishDialog(String description, Date date) {
+                item.setDescription(description);
+                item.setDueDate(date);
+                itemsAdapter.notifyDataSetChanged();
+            }
+        });
+
+        todoItemDialog.show(fm, "fragment_todo_item");
     }
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (resultCode == RESULT_OK && requestCode == REQUEST_CODE) {
-            String text = data.getExtras().getString("text");
-            int position = data.getExtras().getInt("position");
+    public boolean onOptionsItemSelected(MenuItem item) {
 
-            items.set(position, text);
-            itemsAdapter.notifyDataSetChanged();
-            saveItems();
-            dismissKeyboard();
+        switch (item.getItemId()) {
+        case R.id.action_add:
+            showAddItemDialog();
+            return true;
         }
+        return super.onOptionsItemSelected(item);
     }
+
 }
