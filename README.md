@@ -17,10 +17,6 @@ Completed user stories:
  * [x] Optional: Tweak the style of the app, improve UI.
  * [x] Optional: Persist the todo app in SQLite instead of using a text file
  
-Notes:
-
-Persistance has been disabled for now until SQLite support is added.
-
 Walkthrough of all user stories:
 
 ![Video Walkthrough](anim_todo_app.gif)
