@@ -2,7 +2,7 @@
 
 This is an Android application for tracking a todo list. See the [Todo Prework](https://gist.github.com/nesquena/843228e83fdc4f5ddc4e).
 
-Time spent: 4+6=10 hours spent in total
+Time spent: 4+6+3=13 hours spent in total
 
 Completed user stories:
 
@@ -15,6 +15,7 @@ Completed user stories:
  * [x] Optional: Add support for completion due dates for items. 
  * [x] Optional: Change the item in ListView to display additional attributes. Used "Customizing Android ListView Rows by Subclassing" pattern.
  * [x] Optional: Tweak the style of the app, improve UI.
+ * [x] Optional: Persist the todo app in SQLite instead of using a text file
  
 Notes:
 
