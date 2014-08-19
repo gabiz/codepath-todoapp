@@ -2,25 +2,40 @@ package com.gapix.todoapp;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 
-public class TodoItem {
-    public String details;
+import com.activeandroid.Model;
+import com.activeandroid.annotation.Column;
+import com.activeandroid.annotation.Table;
+import com.activeandroid.query.Select;
+
+@Table(name = "TodoItems")
+public class TodoItem extends Model {
+    @Column(name = "Description")
+    public String description;
+
+    @Column(name = "DueDate")
     public Date dueDate;
     public int priority;
 
+    public TodoItem() {
+        super();
+    }
+
     public TodoItem(String details, Date dueDate, int priority) {
-        this.details = details;
+        super();
+        this.description = details;
         this.dueDate = dueDate;
         this.priority = priority;
     }
 
     public String getDescription() {
-        return details;
+        return description;
     }
 
-    public void setDescription(String description) {
-        details = description;
+    public void setDescription(String value) {
+        description = value;
     }
 
     public Date getDueDate() {
@@ -40,4 +55,7 @@ public class TodoItem {
         return "7";
     }
 
+    public static List<TodoItem> getAll() {
+        return new Select().from(TodoItem.class).execute();
+    }
 }

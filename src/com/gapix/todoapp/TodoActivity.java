@@ -48,9 +48,10 @@ public class TodoActivity extends FragmentActivity {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view,
                     int position, long rowId) {
-                items.remove(position);
+                TodoItem item = items.remove(position);
                 itemsAdapter.notifyDataSetChanged();
-                saveItems();
+                item.delete();
+                // saveItems();
                 return true;
             }
         });
@@ -68,24 +69,7 @@ public class TodoActivity extends FragmentActivity {
     // Load / Save items
 
     public void readItems() {
-        // File filesDir = getFilesDir();
-        // File todoFile = new File(filesDir, "todo.txt");
-        // try {
-        // items = new ArrayList<String>(FileUtils.readLines(todoFile));
-        // } catch (IOException e) {
-        // items = new ArrayList<String>();
-        // e.printStackTrace();
-        // }
-    }
-
-    public void saveItems() {
-        // File filesDir = getFilesDir();
-        // File todoFile = new File(filesDir, "todo.txt");
-        // try {
-        // FileUtils.writeLines(todoFile, items);
-        // } catch (IOException e) {
-        // e.printStackTrace();
-        // }
+        items.addAll(TodoItem.getAll());
     }
 
     private void showAddItemDialog() {
@@ -97,6 +81,7 @@ public class TodoActivity extends FragmentActivity {
                 TodoItem item = new TodoItem(description, date, 3);
                 items.add(item);
                 itemsAdapter.notifyDataSetChanged();
+                item.save();
             }
         });
 
@@ -112,6 +97,7 @@ public class TodoActivity extends FragmentActivity {
                 item.setDescription(description);
                 item.setDueDate(date);
                 itemsAdapter.notifyDataSetChanged();
+                item.save();
             }
         });
 
