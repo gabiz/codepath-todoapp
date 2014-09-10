@@ -12,18 +12,27 @@ import com.activeandroid.query.Select;
 
 @Table(name = "TodoItems")
 public class TodoItem extends Model {
+    public enum Priority {
+        LOW_PRIORITY,
+        NORMAL_PRIORITY,
+        HIGH_PRIORITY
+    }
+    
     @Column(name = "Description")
     public String description;
 
     @Column(name = "DueDate")
     public Date dueDate;
-    public int priority;
+
+    @Column(name = "Priority")
+    public Priority priority;
 
     public TodoItem() {
         super();
     }
+    
 
-    public TodoItem(String details, Date dueDate, int priority) {
+    public TodoItem(String details, Date dueDate, Priority priority) {
         super();
         this.description = details;
         this.dueDate = dueDate;
@@ -51,8 +60,12 @@ public class TodoItem extends Model {
         dueDate = date;
     }
 
-    public String getPriority() {
-        return "7";
+    public void setPriority(Priority value) {
+        priority = value;
+    }
+
+    public Priority getPriority() {
+        return priority;
     }
 
     public static List<TodoItem> getAll() {

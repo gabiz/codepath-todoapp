@@ -5,7 +5,7 @@
     android:layout_gravity="center" android:orientation="vertical"  >
 
     <TextView
-        android:id="@+id/lbl_task_description" android:text="Task Description" 
+        android:id="@+id/lbl_task_description" android:text="@+id/task_description_title" 
         android:layout_marginTop="5dp"
         android:layout_marginLeft="5dp"
         android:layout_width="wrap_content" android:layout_height="wrap_content" />
@@ -16,8 +16,22 @@
         android:inputType="text"
         android:imeOptions="actionDone" />
     
+
     <TextView
-        android:id="@+id/lbl_due_date" android:text="Due Date" 
+        android:id="@+id/lbl_priority" android:text="@+id/priority_title" 
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="5dp"
+        android:layout_width="wrap_content" android:layout_height="wrap_content" />
+
+    <Spinner
+         android:id="@+id/spn_priority"
+         android:layout_width="wrap_content"
+         android:entries="@array/priorities_array"
+         android:prompt="@string/priorities_prompt"
+         android:layout_height="wrap_content" />
+    
+    <TextView
+        android:id="@+id/lbl_due_date" android:text="@+id/due_date_title" 
         android:layout_marginTop="5dp"
         android:layout_marginLeft="5dp"
         android:layout_width="wrap_content" android:layout_height="wrap_content" />

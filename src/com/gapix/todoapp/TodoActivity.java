@@ -77,8 +77,9 @@ public class TodoActivity extends FragmentActivity {
         TodoItemDialog todoItemDialog = TodoItemDialog.newInstance(
                 "Add Todo Item", null);
         todoItemDialog.setFinishDialogListener(new TodoItemDialogListener() {
-            public void onFinishDialog(String description, Date date) {
-                TodoItem item = new TodoItem(description, date, 3);
+            public void onFinishDialog(String description, Date date,
+                    TodoItem.Priority priority) {
+                TodoItem item = new TodoItem(description, date, priority);
                 items.add(item);
                 itemsAdapter.notifyDataSetChanged();
                 item.save();
@@ -93,9 +94,11 @@ public class TodoActivity extends FragmentActivity {
         TodoItemDialog todoItemDialog = TodoItemDialog.newInstance(
                 "Edit Todo Item", item);
         todoItemDialog.setFinishDialogListener(new TodoItemDialogListener() {
-            public void onFinishDialog(String description, Date date) {
+            public void onFinishDialog(String description, Date date,
+                    TodoItem.Priority priority) {
                 item.setDescription(description);
                 item.setDueDate(date);
+                item.setPriority(priority);
                 itemsAdapter.notifyDataSetChanged();
                 item.save();
             }

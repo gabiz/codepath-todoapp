@@ -11,14 +11,17 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.Spinner;
+import android.widget.SpinnerAdapter;
 
 public class TodoItemDialog extends DialogFragment {
     private EditText mEditText;
+    private Spinner mPrioSpinner;
     private DatePicker mDatePicker;
     public TodoItem todoItem;
 
     public interface TodoItemDialogListener {
-        void onFinishDialog(String description, Date date);
+        void onFinishDialog(String description, Date date, TodoItem.Priority priority);
     }
 
     private TodoItemDialogListener mListener;
@@ -41,8 +44,11 @@ public class TodoItemDialog extends DialogFragment {
             args.putInt("year", date.getYear());
             args.putInt("month", date.getMonth());
             args.putInt("day", date.getDate());
+
+            args.putInt("priority", item.getPriority().ordinal());
         } else {
             args.putString("description", "");
+            args.putInt("priority", 1);
         }
 
         frag.setArguments(args);
@@ -56,9 +62,16 @@ public class TodoItemDialog extends DialogFragment {
         String title = getArguments().getString("title", "");
         getDialog().setTitle(title);
 
+        // Set task description
         mEditText = (EditText) view.findViewById(R.id.txt_task_description);
         mEditText.setText(getArguments().getString("description", ""));
 
+        // Set priority
+        mPrioSpinner = (Spinner) view.findViewById(R.id.spn_priority);
+        int priority = getArguments().getInt("priority");
+        mPrioSpinner.setSelection(priority);
+
+        // Set due date
         mDatePicker = (DatePicker) view.findViewById(R.id.dp_due_date);
         int year = getArguments().getInt("year", 0);
 
@@ -72,7 +85,6 @@ public class TodoItemDialog extends DialogFragment {
 
         final Button button = (Button) view.findViewById(R.id.btn_save_item);
 
-        // Setup record button notification
         button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 dismiss();
@@ -80,7 +92,9 @@ public class TodoItemDialog extends DialogFragment {
                 @SuppressWarnings("deprecation")
                 Date date = new Date(mDatePicker.getYear() - 1900, mDatePicker
                         .getMonth(), mDatePicker.getDayOfMonth());
-                mListener.onFinishDialog(mEditText.getText().toString(), date);
+                TodoItem.Priority priority = TodoItem.Priority.values()[mPrioSpinner.getSelectedItemPosition()];
+                mListener.onFinishDialog(mEditText.getText().toString(), date,
+                        priority);
             }
         });
 
@@ -88,5 +102,17 @@ public class TodoItemDialog extends DialogFragment {
         getDialog().getWindow().setSoftInputMode(
                 WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
         return view;
+    }
+
+    public void setSpinnerToValue(Spinner spinner, String value) {
+        int index = 0;
+        SpinnerAdapter adapter = spinner.getAdapter();
+        for (int i = 0; i < adapter.getCount(); i++) {
+            if (adapter.getItem(i).equals(value)) {
+                index = i;
+                break; // terminate loop
+            }
+        }
+        spinner.setSelection(index);
     }
 }

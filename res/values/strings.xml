@@ -8,6 +8,10 @@
     <string name="add_button_label">Add Task</string>
     <string name="title_activity_edit_item">EditItemActivity</string>
     <string name="edit_item_label">Edit Item Below:</string>
+    <string name="priorities_prompt">Normal</string>
     <string name="save_button_label">Save</string>
-
+    <string name="priority_title">Priority</string>
+    <string name="task_description_title">Task Description</string>
+    <string name="due_date_title">Due Date</string>
+    
 </resources>
