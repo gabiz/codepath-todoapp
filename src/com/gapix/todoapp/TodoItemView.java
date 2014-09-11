@@ -63,7 +63,7 @@ public class TodoItemView extends RelativeLayout {
         }
         Date dueDate = item.getDueDate();
         Date now = new Date();
-        if (dueDate.after(now)) {
+        if (dueDate.before(now)) {
             mDueDateView.setTextColor(getResources().getColor(R.color.red));
         } else {
             mDueDateView.setTextColor(getResources().getColor(R.color.blue));

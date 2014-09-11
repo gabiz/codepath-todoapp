@@ -7,7 +7,6 @@ import android.support.v4.app.DialogFragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -81,7 +80,6 @@ public class TodoItemDialog extends DialogFragment {
 
             mDatePicker.updateDate(year + 1900, month, day);
         }
-        // Show soft keyboard automatically
 
         final Button button = (Button) view.findViewById(R.id.btn_save_item);
 
@@ -98,9 +96,10 @@ public class TodoItemDialog extends DialogFragment {
             }
         });
 
-        mEditText.requestFocus();
-        getDialog().getWindow().setSoftInputMode(
-                WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
+        // Show soft keyboard automatically
+//        mEditText.requestFocus();
+//        getDialog().getWindow().setSoftInputMode(
+//                WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
         return view;
     }
 

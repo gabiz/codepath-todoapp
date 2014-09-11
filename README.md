@@ -16,6 +16,7 @@ Completed user stories:
  * [x] Optional: Change the item in ListView to display additional attributes. Used "Customizing Android ListView Rows by Subclassing" pattern.
  * [x] Optional: Tweak the style of the app, improve UI.
  * [x] Optional: Persist the todo app in SQLite instead of using a text file
+ * [x] Optional: Added task priorities
  
 Walkthrough of all user stories:
 
