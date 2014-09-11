@@ -2,7 +2,7 @@
 
 This is an Android application for tracking a todo list. See the [Todo Prework](https://gist.github.com/nesquena/843228e83fdc4f5ddc4e).
 
-Time spent: 4+6+3=13 hours spent in total
+Time spent: 4+6+3+3=16 hours spent in total
 
 Completed user stories:
 
